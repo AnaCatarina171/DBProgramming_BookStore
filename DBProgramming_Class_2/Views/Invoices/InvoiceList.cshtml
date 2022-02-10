@@ -1,0 +1,54 @@
+﻿@model List<DBProgramming_Class_2.Models.Invoice>
+
+@{
+    ViewBag.Title = "InvoiceList";
+}
+
+<link rel="stylesheet" href="~/Content/style.css" />
+<script type="text/javascript" src="~/Content/app.js"></script>
+
+<div class="row">
+    <div class="col-md-12">
+        <h2>List of Invoices</h2>
+        <a href="/Invoices/AddInvoice">Add a new Invoice</a>
+    </div>
+</div>
+<br />
+<div class="row">
+    <div class="col-md-12">
+        <table class="styled-table">
+            <thead>
+                <tr>
+                    <th scope="col">Invoice ID</th>
+                    <th scope="col">Customer Name</th>
+                    <th scope="col">Date</th>
+                    <th scope="col">Invoice Total</th>
+                    <th scope="col">Product Total</th>
+                    <th scope="col">Shipping Cost</th>
+                    <th scope="col">Actions</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var invoice in Model)
+                {
+                    <tr>
+                        <td scope="row">@invoice.InvoiceID</td>
+                        <td scope="row">
+                            <a href="/Customers/Index/@invoice.CustomerID">@invoice.Customer.Name</a>
+                        </td>
+                        <td scope="row">@invoice.InvoiceDate.ToShortDateString()</td>
+                        <td scope="row">@invoice.InvoiceTotal.ToString("c")</td>
+                        <td scope="row">@invoice.ProductTotal.ToString("c")</td>
+                        <td scope="row">@invoice.Shipping.ToString("c")</td>
+                        <td scope="row">
+                            @Html.ActionLink("Edit", "AddInvoice", "Invoices", new { id = invoice.InvoiceID }, null) |
+                            @Html.ActionLink("Delete", "Delete", "Invoices", new { id = invoice.InvoiceID }, null)
+
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+</div>
+

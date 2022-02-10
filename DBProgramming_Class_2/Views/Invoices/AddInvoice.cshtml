@@ -1,0 +1,58 @@
+﻿@model DBProgramming_Class_2.Models.CombinedInvoiceCustomer
+
+@using (Html.BeginForm("AddInvoice", "Invoices", FormMethod.Post))
+{
+
+
+    <div class="row">
+        <div class="col-md-12">
+            <h2>Add Or Edit Invoice</h2>
+        </div>
+    </div>
+    <br />
+    <div class="row">
+        <div class="col-md-4">
+            <label>Customer Name</label>
+            @Html.DropDownListFor(model => model.Invoice.CustomerID, new SelectList(Model.Customers, "CustomerID", "Name"),
+                new { @class = "form-control" })
+        </div>
+        <div class="col-md-4">
+            <label>Invoice Date</label>
+            <br />
+            @if (Model.Invoice.InvoiceDate.ToShortDateString() == "0001-01-01")
+            {
+                @Html.TextBoxFor(model => model.Invoice.InvoiceDate, new { @class = "form-control", type = "date", @Value = DateTime.Today.ToShortDateString() });
+            }
+            else
+            {
+                @Html.TextBoxFor(model => model.Invoice.InvoiceDate, new { @class = "form-control", type = "date", @Value = Model.Invoice.InvoiceDate.ToShortDateString() });
+            }
+
+        </div>
+        <div class="col-md-4">
+            <label>Product Total</label>
+            <br />
+            @Html.TextBoxFor(model => model.Invoice.ProductTotal, new { @class = "form-control", disabled = "disabled"})
+        </div>
+    </div>
+    <br />
+    <div class="row">
+        <div class="col-md-4">
+            <label>Sales Tax</label>
+            <br />
+            @Html.TextBoxFor(model => model.Invoice.SalesTax, new { @class = "form-control", disabled = "disabled"})
+        </div>
+        <div class="col-md-4">
+            <label>Shipping</label>
+            <br />
+            @Html.TextBoxFor(model => model.Invoice.Shipping, new { @class = "form-control", disabled = "disabled"})
+        </div>
+        <div class="col-md-4">
+            <label>Invoice Total</label>
+            <br />
+            @Html.TextBoxFor(model => model.Invoice.InvoiceTotal, new { @class = "form-control", disabled = "disabled"})
+        </div>
+    </div>
+    <br />
+    <input type="submit" value="Submit" />
+}

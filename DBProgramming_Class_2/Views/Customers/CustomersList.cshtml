@@ -1,0 +1,107 @@
+﻿@model List<DBProgramming_Class_2.Models.Customer>
+
+@{
+    ViewBag.Title = "CustomersList";
+}
+
+<link rel="stylesheet" href="~/Content/style.css" />
+@*<script type="text/javascript" src="~/Content/app.js"></script>*@
+@*<script>
+        function searchCustomer() {
+            var searchTermName = document.getElementById('txtName').value;
+
+            searchTermName = searchTermName.trim();
+
+            window.location.href = "/Customers/CustomersList/?searchTermName=" + searchTermName;
+        }
+    </script>*@
+
+
+<div class="row">
+    <div class="col-md-12">
+        <h2>Customers List</h2>
+    </div>
+</div>
+
+@*
+    When clicking submit button inside a form with GET method, we redirect
+    to the page in the form Action, with all the "named" inputs
+    window.location.href = "/CustomersList/Customers?myFirstSearch=" + myFirstSearch
+*@
+
+@using (Html.BeginForm("CustomersList", "Customers", FormMethod.Get))
+{
+    <div class="row">
+        <div class="col-md-3">
+            <span>Search: &nbsp;</span>
+            <input type="text" placeholder="Name..." id="searchTerm" name="searchTerm" />
+        </div>
+        <div class="col-md-3">
+            <input type="submit" value="Submit" />
+        </div>
+    </div>
+}
+
+@*
+    <div class="row">
+        <div class="col-md-6">
+            <span>Search: &nbsp;</span>
+            <input type="text" id="txtName" name="txtName" placeholder="Name..." />
+        </div>
+        <div class="col-md-6">
+            <input type="button" id="btnSearchName" value="GO" onclick="searchCustomer()" />
+        </div>
+    </div>*@
+
+<br />
+<div>
+    <a href="AddCustomer/">Add New Customer</a>
+</div>
+<br />
+<div>
+    <div class="col-md-12">
+        <table id="customers" class="styled-table">
+            <thead>
+                <tr>
+                    <th scope="col">Customer ID</th>
+                    <th scope="col">Name</th>
+                    <th scope="col">Address</th>
+                    <th scope="col">City</th>
+                    <th scope="col">State</th>
+                    <th scope="col">Zip Code</th>
+                    <th scope="col"># of Invoices</th>
+                    <th scope="col">Actions</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var customer in Model)
+                {
+                    <tr>
+                        <td scope="row">@customer.CustomerID</td>
+                        <td scope="row">
+                            <a href="/Customers/Index/@customer.CustomerID">@customer.Name</a>
+                        </td>
+                        <td scope="row">@customer.Address</td>
+                        <td scope="row">@customer.City</td>
+                        <td scope="row">@customer.State</td>
+                        <td scope="row">@customer.ZipCode</td>
+                        <td scope="row">
+                            @customer.Invoices.Count()
+                            @if (customer.Invoices.Count() > 0)
+                            {
+                                <br />
+                                <a href="/Invoices/CustomerInvoices/@customer.CustomerID">Go To Invoices</a>
+                            }
+                            <br />
+                            @Html.ActionLink("Add New Invoice", "AddInvoice", "Invoices", new { customerId = customer.CustomerID }, null)
+                        </td>
+                        <td>
+                            @Html.ActionLink("Edit", "Index", "Customers", new { id = customer.CustomerID }, null) |
+                            @Html.ActionLink("Delete", "Delete", "Customers", new { id = customer.CustomerID }, null)
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+</div>

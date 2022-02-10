@@ -1,0 +1,42 @@
+﻿@model List<DBProgramming_Class_2.Models.Invoice>
+
+@{
+    ViewBag.Title = "CustomerInvoices";
+}
+
+<link rel="stylesheet" href="~/Content/style.css" />
+<script type="text/javascript" src="~/Content/app.js"></script>
+
+<div class="row">
+    <div class="col-md-12">
+        <h2>Invoices for @Model[0].Customer.Name</h2>
+    </div>
+</div>
+
+<div class="row">
+    <div class="col-md-12">
+        <table id="products" class="styled-table">
+            <thead>
+                <tr>
+                    <th scope="col">Invoice ID</th>
+                    <th scope="col">Date</th>
+                    <th scope="col">Invoice Total</th>
+                    <th scope="col">Product Total</th>
+                    <th scope="col">Shipping Cost</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var invoice in Model)
+                {
+                    <tr>
+                        <td scope="row">@invoice.InvoiceID</td>
+                        <td scope="row">@invoice.InvoiceDate.ToShortDateString()</td>
+                        <td scope="row">@invoice.InvoiceTotal.ToString("c")</td>
+                        <td scope="row">@invoice.ProductTotal.ToString("c")</td>
+                        <td scope="row">@invoice.Shipping.ToString("c")</td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+</div>

@@ -1,0 +1,47 @@
+﻿@*The model we're getting from the back end, and sending to the backend'*@
+@model DBProgramming_Class_2.Models.Customer
+
+@*<form> method="post" target="_self" action="/Customers/AddCustomer"><form>*@
+
+@*Tag to create a form*@
+@using (Html.BeginForm("AddCustomer", "Customers", FormMethod.Post))
+{
+    @Html.HiddenFor(c => c.State1);
+
+<br />
+<h2>Add or Edit Customer</h2>
+<br />
+<div class="row">
+    <div class="col-md-4">
+        @*This is how we create a text box that is associated with an objects' attribute'*@
+        @Html.TextBoxFor(c => c.CustomerID, new { disabled = "disabled", @class = "form-control", @placeholder = "Customer Id" })
+    </div>
+    <div class="col-md-4">
+        @Html.TextBoxFor(c => c.Name, new { @class = "form-control", @placeholder = "Name..." })
+    </div>
+    <div class="col-md-4">
+        @Html.TextBoxFor(c => c.Address, new { @class = "form-control", @placeholder = "Address..." })
+    </div>
+</div>
+<br />
+    <div class="row">
+        <div class="col-md-4">
+            @Html.TextBoxFor(c => c.City, new { @class = "form-control", @placeholder = "City..." })
+        </div>
+        <div class="col-md-4">
+            @Html.TextBoxFor(c => c.State, new { @class = "form-control", @placeholder = "State..." })
+        </div>
+        <div class="col-md-4">
+            @Html.TextBoxFor(c => c.ZipCode, new { @class = "form-control", @placeholder = "Zip Code..." })
+        </div>
+    </div>
+<br />
+
+    <div class="row">
+        <div class="col-md-12">
+            @*A submit button inside a form will ALWAYS submits the form*@
+            <input type="submit" value="Submit Customer" />
+        </div>
+    </div>
+}
+
